@@ -10,7 +10,7 @@ router.get("/", async (req, res, next) => {
   try {
     res.json(await contacts.listContacts());
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    next(error);
   }
 });
 
@@ -23,13 +23,14 @@ router.get("/:contactId", async (req, res, next) => {
     }
     res.json(result);
   } catch (error) {
-    const { status = 500, message = "Server error" } = error;
-    res.status(status).json({ message });
+    next(error);
   }
 });
 
 router.post("/", async (req, res, next) => {
-  res.json({ message: "template message" });
+  try {
+    
+  } catch (error) {next(error)}
 });
 
 router.delete("/:contactId", async (req, res, next) => {
