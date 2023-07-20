@@ -1,16 +1,18 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 import app from "./app.js";
 
-const DB_HOST =
-  "mongodb+srv://Oleksandr:ULW4RCMD6ES0CP7y@cluster0.r82o1ri.mongodb.net/db-contacts?retryWrites=true&w=majority";
+dotenv.config();
+
+const { DB_HOST, PORT } = process.env;
 
 mongoose.set("strictQuery", true);
 
 mongoose
   .connect(DB_HOST)
   .then(() => {
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
       console.log("Database connection successful");
     });
   })
