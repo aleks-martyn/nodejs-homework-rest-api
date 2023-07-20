@@ -28,6 +28,12 @@ contactsRouter.put(
   contactsController.updateById
 );
 
+contactsRouter.patch(
+  "/:contactId/favorite",
+  isEmptyBody,
+  contactsController.updateStatusContact
+);
+
 contactsRouter.delete("/:contactId", contactsController.deleteById);
 
 export default contactsRouter;
