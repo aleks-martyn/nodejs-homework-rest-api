@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 
+import { handleMongooseError } from "../helpers/index.js";
+
 const contactSchema = new Schema(
   {
     name: {
@@ -19,6 +21,8 @@ const contactSchema = new Schema(
   },
   { versionKey: false }
 );
+
+contactSchema.post("save", handleMongooseError);
 
 const Contact = model("contact", contactSchema);
 
