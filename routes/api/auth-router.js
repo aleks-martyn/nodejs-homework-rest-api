@@ -24,7 +24,12 @@ authRouter.post(
 
 authRouter.get("/current", authenticate, authController.getCurrent);
 
-authRouter.patch("/", authenticate, authController.updateSubscription);
+authRouter.patch(
+  "/",
+  authenticate,
+  validateBody(usersSchemas.updateSubscriptionSchema),
+  authController.updateSubscription
+);
 
 authRouter.post("/signout", authenticate, authController.signout);
 
