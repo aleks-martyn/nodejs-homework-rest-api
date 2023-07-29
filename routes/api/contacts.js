@@ -4,11 +4,13 @@ import contactsController from "../../controllers/contacts.js";
 
 import { validateBody } from "../../middlewares/index.js";
 
-import { isEmptyBody, isValidId } from "../../middlewares/index.js";
+import { authenticate, isEmptyBody, isValidId } from "../../middlewares/index.js";
 
 import schemas from "../../schemas/contacts.js";
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", contactsController.getAll);
 
