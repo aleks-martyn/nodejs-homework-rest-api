@@ -31,6 +31,8 @@ authRouter.patch(
   authController.updateSubscription
 );
 
+authRouter.patch("/avatars", authenticate, upload.single("avatar"), authController.updateAvatar);
+
 authRouter.post("/signout", authenticate, authController.signout);
 
 export default authRouter;
