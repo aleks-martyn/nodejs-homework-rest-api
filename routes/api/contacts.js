@@ -4,7 +4,7 @@ import contactsController from "../../controllers/contacts.js";
 
 import { validateBody } from "../../middlewares/index.js";
 
-import { authenticate, upload, isEmptyBody, isValidId } from "../../middlewares/index.js";
+import { authenticate, isEmptyBody, isValidId } from "../../middlewares/index.js";
 
 import schemas from "../../schemas/contacts.js";
 
