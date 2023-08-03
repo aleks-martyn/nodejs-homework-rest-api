@@ -2,7 +2,7 @@ import express from "express";
 
 import authController from "../../controllers/auth-controller.js";
 
-import { validateBody } from "../../middlewares/index.js";
+import { validateBody, upload } from "../../middlewares/index.js";
 
 import usersSchemas from "../../schemas/users-schemas.js";
 
