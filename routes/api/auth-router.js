@@ -2,7 +2,7 @@ import express from "express";
 
 import authController from "../../controllers/auth-controller.js";
 
-import { validateBody } from "../../middlewares/index.js";
+import { validateBody, upload, resizeAvatar } from "../../middlewares/index.js";
 
 import usersSchemas from "../../schemas/users-schemas.js";
 
@@ -29,6 +29,14 @@ authRouter.patch(
   authenticate,
   validateBody(usersSchemas.updateSubscriptionSchema),
   authController.updateSubscription
+);
+
+authRouter.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  resizeAvatar,
+  authController.updateAvatar
 );
 
 authRouter.post("/signout", authenticate, authController.signout);
