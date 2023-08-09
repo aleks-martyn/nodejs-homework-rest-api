@@ -9,9 +9,9 @@ import User from "../models/user.js";
 
 import { ctrlWrapper } from "../decorators/index.js";
 
-import { HttpError, sendEmail } from "../helpers/index.js";
+import { HttpError, sendEmail, createVerifyEmail } from "../helpers/index.js";
 
-const { JWT_SECRET, BASE_URL } = process.env;
+const { JWT_SECRET } = process.env;
 
 const avatarsPath = path.resolve("public", "avatars");
 
@@ -34,11 +34,7 @@ const signup = async (req, res) => {
     verificationToken,
   });
 
-  const verifyEmail = {
-    to: email,
-    subject: "Verify email",
-    html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationToken}">Click verify email</a>`,
-  };
+  const verifyEmail = createVerifyEmail({ email, verificationToken });
 
   await sendEmail(verifyEmail);
 
