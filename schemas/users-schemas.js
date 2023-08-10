@@ -13,6 +13,13 @@ const userSigninSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const userEmailSchema = Joi.object({
+  email: Joi.string()
+    .pattern(emailRegexp)
+    .required()
+    .messages({ "any.required": "missing required field email" }),
+});
+
 const updateSubscriptionSchema = Joi.object({
   subscription: Joi.string()
     .valid(...subscriptionList)
@@ -22,5 +29,6 @@ const updateSubscriptionSchema = Joi.object({
 export default {
   userSignupSchema,
   userSigninSchema,
+  userEmailSchema,
   updateSubscriptionSchema,
 };
