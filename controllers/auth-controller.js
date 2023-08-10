@@ -59,6 +59,27 @@ const verifyEmail = async (req, res) => {
   res.json({ message: "Verification successful" });
 };
 
+const resendVerifyEmail = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw HttpError(404, "User not found");
+  }
+
+  if (user.verify) {
+    throw HttpError(400, "Verification has already been passed");
+  }
+
+  const verifyEmail = createVerifyEmail({
+    email,
+    verificationToken: user.verificationToken,
+  });
+
+  await sendEmail(verifyEmail);
+
+  res.json({ message: "Verification email sent" });
+};
+
 const signin = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -136,6 +157,7 @@ const signout = async (req, res) => {
 export default {
   signup: ctrlWrapper(signup),
   verifyEmail: ctrlWrapper(verifyEmail),
+  resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
   signin: ctrlWrapper(signin),
   getCurrent: ctrlWrapper(getCurrent),
   updateSubscription: ctrlWrapper(updateSubscription),
